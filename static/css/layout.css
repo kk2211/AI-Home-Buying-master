@@ -1,0 +1,25 @@
+.form-actions {
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+}
+.btn-xl {
+    padding: 10px 20px;
+    font-size: 21px;
+    border-radius: 30px;
+    width:500px;
+}
+.btn-sl {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 30px;
+    width:300px;
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, html {
+    height: 100%;
+    line-height: 1.8;
+}
+.w3-bar .w3-button {
+    padding: 16px;
+}

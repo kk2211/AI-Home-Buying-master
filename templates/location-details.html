@@ -1,0 +1,407 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <style>
+
+        @import url(https://fonts.googleapis.com/css?family=Lato:700);
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+        .set-size {
+            font-size: 10em;
+        }
+
+        .charts-container:after {
+            clear: both;
+            content: "";
+            display: table;
+        }
+
+        .pie-wrapper {
+            height: 1em;
+            width: 1em;
+            float: left;
+            margin: 15px;
+            position: relative;
+        }
+        .pie-wrapper:nth-child(3n + 1) {
+            clear: both;
+        }
+        .pie-wrapper .pie {
+            height: 100%;
+            width: 100%;
+            clip: rect(0, 1em, 1em, 0.5em);
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+        .pie-wrapper .pie .half-circle {
+            height: 100%;
+            width: 100%;
+            border: 0.1em solid #3498db;
+            border-radius: 50%;
+            clip: rect(0, 0.5em, 1em, 0);
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+        .pie-wrapper .label {
+            background: #34495e;
+            border-radius: 50%;
+            bottom: 0.4em;
+            color: #ecf0f1;
+            cursor: default;
+            display: block;
+            font-size: 0.25em;
+            left: 0.4em;
+            line-height: 2.8em;
+            position: absolute;
+            right: 0.4em;
+            text-align: center;
+            top: 0.4em;
+        }
+        .pie-wrapper .label .smaller {
+            color: #bdc3c7;
+            font-size: 0.45em;
+            padding-bottom: 20px;
+            vertical-align: super;
+        }
+        .pie-wrapper .shadow {
+            height: 100%;
+            width: 100%;
+            border: 0.1em solid #bdc3c7;
+            border-radius: 50%;
+        }
+        .pie-wrapper.style-2 .label {
+            background: none;
+            color: #7f8c8d;
+        }
+        .pie-wrapper.style-2 .label .smaller {
+            color: #bdc3c7;
+        }
+        .pie-wrapper--solid {
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .pie-wrapper--solid:before {
+            border-radius: 0 100% 100% 0 / 50%;
+            content: "";
+            display: block;
+            height: 100%;
+            margin-left: 50%;
+            -webkit-transform-origin: left;
+            transform-origin: left;
+        }
+        .pie-wrapper--solid .label {
+            background: transparent;
+        }
+
+
+        .pie-wrapper.progress-0 .pie {
+            clip: rect(auto, auto, auto, auto);
+        }
+        .pie-wrapper.progress-0 .pie .half-circle {
+            border-color: #868686;
+        }
+        .pie-wrapper.progress-0 .pie .left-side {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        .pie-wrapper.progress-0 .pie .right-side {
+            -webkit-transform: rotate({{ 180 }}deg);
+            transform: rotate({{ 180 }}deg);
+        }
+
+        {% for i in range(1,36) %}
+            .pie-wrapper.progress-{{ i }} .pie .half-circle {
+                border-color: #FA200A;
+            }
+            .pie-wrapper.progress-{{ i }} .pie .left-side {
+                -webkit-transform: rotate({{ (i/100)*360 }}deg);
+                transform: rotate({{ (i/100)*360 }}deg);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .right-side {
+                display: none;
+            }
+        {% endfor %}
+
+        {% for i in range(36,51) %}
+            .pie-wrapper.progress-{{ i }} .pie .half-circle {
+                border-color: #FEA602;
+            }
+            .pie-wrapper.progress-{{ i }} .pie .left-side {
+                -webkit-transform: rotate({{ (i/100)*360 }}deg);
+                transform: rotate({{ (i/100)*360 }}deg);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .right-side {
+                display: none;
+            }
+        {% endfor %}
+
+        {% for i in range(51,75) %}
+            .pie-wrapper.progress-{{ i }} .pie {
+                clip: rect(auto, auto, auto, auto);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .half-circle {
+                border-color: #FEA602;
+            }
+            .pie-wrapper.progress-{{ i }} .pie .left-side {
+                -webkit-transform: rotate({{ (i/100)*360 }}deg);
+                transform: rotate({{ (i/100)*360 }}deg);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .right-side {
+                -webkit-transform: rotate({{ 180 }}deg);
+                transform: rotate({{ 180 }}deg);
+            }
+        {% endfor %}
+
+        {% for i in range(75, 101) %}
+            .pie-wrapper.progress-{{ i }} .pie {
+                clip: rect(auto, auto, auto, auto);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .half-circle {
+                border-color: #18D84D;
+            }
+            .pie-wrapper.progress-{{ i }} .pie .left-side {
+                -webkit-transform: rotate({{ (i/100)*360 }}deg);
+                transform: rotate({{ (i/100)*360 }}deg);
+            }
+            .pie-wrapper.progress-{{ i }} .pie .right-side {
+                -webkit-transform: rotate({{ 180 }}deg);
+                transform: rotate({{ 180 }}deg);
+            }
+        {% endfor %}
+
+        .pie-wrapper--solid {
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .pie-wrapper--solid:before {
+            border-radius: 0 100% 100% 0 / 50%;
+            content: "";
+            display: block;
+            height: 100%;
+            margin-left: 50%;
+            -webkit-transform-origin: left;
+            transform-origin: left;
+        }
+        .pie-wrapper--solid .label {
+            background: transparent;
+        }
+    </style>
+
+    <br>
+    <font color="white">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-7">
+                    <h2><b>Area at a glance</b></h2><br>
+
+
+                    <h4>Safety Index :</h4>
+
+                    <div class="set-size charts-container" style="padding: 10px">
+                        <div class="pie-wrapper pie-wrapper--solid progress-0 style-2">
+                            <span class="label">NA<span class="smaller"></span></span>
+                            <div class="pie">
+                                <div class="left-side half-circle"></div>
+                                <div class="right-side half-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <h4><b>No Crimes have been reported here in past 3-4 months, therefore Area remains unrated.</b></h4>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="column text-center" style="padding: 45px">
+                <p>
+                    <h4>School Density</h4>
+                    <div class="set-size charts-container">
+                        {% if school_r=="A+" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-100 style-2">
+                                <span class="label">{{ school_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif school_r=="A" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-80 style-2">
+                                <span class="label">{{ school_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif school_r=="B" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-65 style-2">
+                                <span class="label">{{ school_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-34 style-2">
+                                <span class="label">{{ school_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </p>
+                <br>
+
+            </div>
+            <div class="column text-center" style="padding: 45px">
+                <p>
+                    <h4>Hospital Density</h4>
+                    <div class="set-size charts-container">
+                        {% if hospital_r=="A+" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-100 style-2">
+                                <span class="label">{{ hospital_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif hospital_r=="A" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-80 style-2">
+                                <span class="label">{{ hospital_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif hospital_r=="B" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-65 style-2">
+                                <span class="label">{{ hospital_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-34 style-2">
+                                <span class="label">{{ hospital_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </p>
+                <br>
+
+            </div>
+            <div class="column text-center" style="padding: 45px">
+                <p>
+                    <h4>Restaurant Density</h4>
+                    <div class="set-size charts-container">
+                        {% if restaurant_r=="A+" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-100 style-2">
+                                <span class="label">{{ restaurant_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif restaurant_r=="A" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-80 style-2">
+                                <span class="label">{{ restaurant_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif restaurant_r=="B" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-65 style-2">
+                                <span class="label">{{ restaurant_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-34 style-2">
+                                <span class="label">{{ restaurant_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </p>
+                <br>
+
+            </div>
+            <div class="column text-center" style="padding: 45px">
+                <p>
+                    <h4>Park Density</h4>
+                    <div class="set-size charts-container">
+                        {% if park_r=="A+" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-100 style-2">
+                                <span class="label">{{ park_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif park_r=="A" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-80 style-2">
+                                <span class="label">{{ park_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% elif park_r=="B" %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-65 style-2">
+                                <span class="label">{{ park_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="pie-wrapper pie-wrapper--solid progress-34 style-2">
+                                <span class="label">{{ park_r }}<span class="smaller"></span></span>
+                                <div class="pie">
+                                    <div class="left-side half-circle"></div>
+                                    <div class="right-side half-circle"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </p>
+                <br>
+
+            </div>
+        </div>
+
+
+        <br><br><br><br>
+
+
+
+
+
+
+
+    <br>
+
+{% endblock %}

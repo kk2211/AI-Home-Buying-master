@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/animsition/css/animsition.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/daterangepicker/daterangepicker.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+<style>
+	.center {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+</style>
+
+<div class="limiter">
+	<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55 center">
+		<form class="login100-form validate-form flex-sb flex-w" method="POST">
+			<span class="login100-form-title p-b-24">
+				Enter your details
+			</span>
+
+			<span class="txt1 p-b-11">
+				Age
+			</span>
+
+
+			<input type="number" name="age" class="form-control m-b-24" id="ageInput" placeholder="Enter your age" required>
+			<br><br>
+
+
+			<span class="txt1 p-b-11">
+				Gender
+			</span>
+			<select class="form-control m-b-24" id="genderInput" name="gender" required>
+				<option value="">Select</option>
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+			</select>
+			<br><br>
+
+
+
+			<span class="txt1 p-b-11">
+				Are you a Businessman?
+			</span>
+			<select class="form-control m-b-24" id="businessmanInput" name="businessman" required>
+				<option value="">Select</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			<br><br><br>
+
+			<div class="container-login100-form-btn">
+				<button class="login100-form-btn">
+					Submit
+				</button>
+			</div>
+
+
+		</form>
+	</div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+
+<script src="{{ url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/animsition/js/animsition.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/select2/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/countdowntime/countdowntime.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+{% endblock %}

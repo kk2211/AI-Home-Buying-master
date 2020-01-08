@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+	.center {
+		margin: 0;
+		position: absolute;
+
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+</style>
+
+<font color="white">
+    <h4>Do you want recommendation of areas matching your profile or analysis on an area you are already interested in?</h4>
+
+    <br><br><br>
+
+    <form method="POST">
+        <div class="form-actions">
+            <p><input type="submit" class="btn btn-outline-light btn-sl" name="submit" value="Recommendation"></p>
+        </div>
+    </form>
+
+    <br><br><br><br><br><br>
+
+    <form method="POST">
+        <div class="form-actions">
+            <div class="center">
+                <p>
+                <select class="form-control m-b-24" id="locationInput" name="location" style="width: 300px; height: 45px" required>
+                    <option value="">Select Location</option>
+                    {% for loc in locations %}
+                        <option value="{{ loc }}">{{ loc }}</option>
+                    {% endfor %}
+                </select></p>
+                <p><input type="submit" class="btn btn-outline-light btn-sl" name="submit" value="Analyse"></p>
+            </div>
+
+        </div>
+    </form>
+</font>
+
+
+{% endblock %}

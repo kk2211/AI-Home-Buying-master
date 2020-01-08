@@ -1,0 +1,2 @@
+signUpEmail = ""
+signUpPassword = ""
